@@ -1,0 +1,21 @@
+datasource DS {
+  // optionally set multiple providers
+  // example: provider = ["sqlite", "postgresql"]
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  binaryTargets   = "native"
+  previewFeatures = ["nativeTypes", "createMany"]
+}
+
+model Post {
+  id      Int    @id @default(autoincrement())
+  title   String @unique
+  lede    String @DS.VarChar(200)
+  tagline String @DS.Char(10)
+  content String @DS.Text
+  xml     String @DS.Xml
+}
